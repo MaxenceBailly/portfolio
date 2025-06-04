@@ -9,7 +9,7 @@ document.querySelector('.contact-form form').addEventListener('submit', function
     const message = formData.get('message');
     
     // Créer le lien mailto
-    const mailtoLink = `mailto:maxence.bailly@email.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(`Nom: ${name}\nEmail: ${email}\n\nMessage:\n${message}`)}`;
+    const mailtoLink = `mailto:maxence.bailly.fr@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(`Nom: ${name}\nEmail: ${email}\n\nMessage:\n${message}`)}`;
     
     // Ouvrir le client email
     window.location.href = mailtoLink;

@@ -1,5 +1,5 @@
 // ⚠️ ATTENTION : Remplacez par votre vrai token GitHub personnel
-const GITHUB_TOKEN = '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'; // Ce token semble invalide
+const GITHUB_TOKEN = ''; // Laissez vide ou mettez votre vrai token
 
 // Système de cache avancé
 class GitHubCache {
@@ -65,20 +65,28 @@ async function loadGithubProjects() {
     }
 
     try {
-        // Test de connexion à l'API
+        // Test de connexion à l'API avec gestion d'erreur améliorée
         console.log('🔍 Test de connexion à l\'API GitHub...');
         
         const testResponse = await fetch('https://api.github.com/rate_limit', { headers });
-        const rateLimit = await testResponse.json();
         
-        console.log('📊 Limite de taux:', {
-            remaining: rateLimit.rate.remaining,
-            limit: rateLimit.rate.limit,
-            reset: new Date(rateLimit.rate.reset * 1000).toLocaleTimeString()
-        });
+        if (testResponse.ok) {
+            const rateLimit = await testResponse.json();
+            
+            // Vérifier la structure de la réponse
+            const rateLimitInfo = rateLimit.rate || rateLimit.resources?.core || { remaining: 60, limit: 60 };
+            
+            console.log('📊 Limite de taux:', {
+                remaining: rateLimitInfo.remaining,
+                limit: rateLimitInfo.limit,
+                reset: rateLimitInfo.reset ? new Date(rateLimitInfo.reset * 1000).toLocaleTimeString() : 'Inconnu'
+            });
 
-        if (rateLimit.rate.remaining < 5) {
-            throw new Error(`❌ Limite de taux presque atteinte (${rateLimit.rate.remaining}/${rateLimit.rate.limit}). Réinitialisation à ${new Date(rateLimit.rate.reset * 1000).toLocaleTimeString()}`);
+            if (rateLimitInfo.remaining < 5) {
+                console.warn(`⚠️ Limite de taux faible (${rateLimitInfo.remaining}/${rateLimitInfo.limit})`);
+            }
+        } else {
+            console.warn('⚠️ Impossible de vérifier la limite de taux, continuation...');
         }
 
         // Récupération des repositories
@@ -289,7 +297,10 @@ function refreshGitHubData() {
 
 // Initialisation
 document.addEventListener('DOMContentLoaded', () => {
-    showTokenInstructions();
+    console.log('🚀 Initialisation du module GitHub...');
+    if (!GITHUB_TOKEN) {
+        showTokenInstructions();
+    }
     loadGithubProjects();
 });
 
