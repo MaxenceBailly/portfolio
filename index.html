@@ -34,11 +34,47 @@
     </section>
 
     <div class="container">
-        <!-- Section Projets -->
+        <!-- Section Projets GitHub -->
         <section id="projets" class="section">
-            <h2 class="section-title">Mes Projets</h2>
+            <h2 class="section-title">Mes Projets GitHub</h2>
             <div id="githubProjects" class="github-projects">
                 <div class="loading">Chargement des projets GitHub...</div>
+            </div>
+        </section>
+
+        <!-- Section Projets Manuels -->
+        <section id="projets-manuels" class="section">
+            <h2 class="section-title">Mes Autres Projets</h2>
+            <div class="manual-projects">
+                <!-- Projet 1 -->
+                <div class="project-card" data-project="lyon_lumiere">
+                    <div class="project-image">
+                        <!-- Le carrousel sera généré par JavaScript -->
+                        <div class="loading-carousel">Chargement des images...</div>
+                    </div>
+                    <div class="project-content">
+                        <div class="project-header">
+                            <h3 class="project-title">Lyon Lumière</h3>
+                            <div class="project-stats">
+                                <span class="project-stat">💻 HTML/CSS/JS</span>
+                                <span class="project-stat">📅 2025</span>
+                            </div>
+                        </div>
+                        <p class="project-description">
+                            Site présentant Lyon avec pour thème initial "Lumière". Celui-ci permet de voyager à tavars Lyon et ses monument lors d'une expérience inoubliable.
+                            <br>
+                            Nous avons eu la 4e place sur 39 équipes
+                        </p>
+                        <div class="project-links">
+                            <a href="https://miinnee.github.io/BlockChainersEpreuveWeb/" target="_blank" class="project-link">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                                </svg>
+                                Voir le projet
+                            </a>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -254,5 +290,6 @@
     <script src="./contact.js"></script>
     <script src="./particles.js-master/particles.min.js"></script>
     <script src="./particles.js-master/particles-config.js"></script>
+    <script src="./manual-projects.js"></script>
 </body>
 </html>

@@ -578,3 +578,104 @@ footer {
     position: relative;
     z-index: 1; /* Place le contenu au-dessus des particules */
 }
+
+/* Projets Manuels */
+.manual-projects {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.manual-projects .project-card {
+    border: 1px solid #4ade80; /* Bordure verte pour différencier */
+}
+
+.github-projects .project-card {
+    border: 1px solid #6366f1; /* Bordure violette pour GitHub */
+}
+
+/* Titres de section */
+#projets-manuels .section-title {
+    background: linear-gradient(45deg, #4ade80, #22d3ee);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+#projets .section-title {
+    background: linear-gradient(45deg, #6366f1, #8b5cf6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* Carrousel manuel */
+.manual-projects .image-carousel {
+    position: relative;
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+}
+
+.manual-projects .carousel-nav {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 5px;
+    z-index: 10;
+}
+
+.manual-projects .carousel-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.5);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.manual-projects .carousel-dot.active {
+    background: #4ade80;
+}
+
+/* Pour les projets GitHub ET manuels */
+.project-card {
+    width: 100%;
+    max-width: 400px; /* Largeur maximale fixe */
+    margin: 0 auto; /* Centrer la carte si besoin */
+    display: flex;
+    flex-direction: column;
+    height: 500px; /* Hauteur fixe */
+    overflow: hidden; /* Cache le contenu qui dépasse */
+}
+
+.project-image {
+    height: 200px; /* Hauteur fixe pour l'image */
+    flex-shrink: 0; /* Empêche le rétrécissement */
+}
+
+.project-content {
+    flex: 1; /* Prend le reste de l'espace */
+    display: flex;
+    flex-direction: column;
+    padding: 1.5rem;
+    overflow-y: auto; /* Ajoute un scroll si le contenu est trop long */
+}
+
+.project-description {
+    flex: 1; /* Le descriptif prend l'espace disponible */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 4; /* Nombre de lignes maximum */
+    -webkit-box-orient: vertical;
+}
+
+/* Pour les grilles */
+.github-projects, .manual-projects {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 2rem;
+    justify-items: center; /* Centre les cartes dans la grille */
+}
