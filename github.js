@@ -34,6 +34,202 @@ class GitHubCache {
 
 const githubCache = new GitHubCache(15 * 60 * 1000);
 
+// Fonction pour extraire les images du README
+async function extractImagesFromReadme(repoFullName, headers) {
+    try {
+        const readmeUrl = `https://api.github.com/repos/${repoFullName}/readme`;
+        const readmeResponse = await fetch(readmeUrl, { headers });
+        
+        if (!readmeResponse.ok) {
+            console.log(`📄 Pas de README trouvé pour ${repoFullName}`);
+            return [];
+        }
+
+        const readmeData = await readmeResponse.json();
+        const readmeContent = atob(readmeData.content); // Décodage base64
+        
+        // Regex améliorée pour extraire les images (incluant le nouveau format GitHub)
+        const imageRegex = /!\[[^\]]*\]\((?<url>[^)\s]+)(?:\s+"[^"]*")?\)|<img[^>]+src=["'](?<url2>[^"'\s]+)["']/gi;
+        
+        const images = new Set();
+        let match;
+        
+        while ((match = imageRegex.exec(readmeContent)) !== null) {
+            let imageUrl = match.groups?.url || match.groups?.url2 || match[1] || match[2];
+            
+            if (!imageUrl) continue;
+            
+            // Nettoyer l'URL
+            imageUrl = imageUrl.trim().replace(/["']/g, '');
+            
+            // Convertir les URLs relatives en URLs absolues
+            if (imageUrl.startsWith('./')) {
+                imageUrl = `https://raw.githubusercontent.com/${repoFullName}/${readmeData.branch_name || 'main'}/${imageUrl.substring(2)}`;
+            } else if (imageUrl.startsWith('../')) {
+                imageUrl = `https://raw.githubusercontent.com/${repoFullName}/${readmeData.branch_name || 'main'}/${imageUrl}`;
+            } else if (!imageUrl.match(/^https?:\/\//)) {
+                // URL relative sans ./ ou ../
+                imageUrl = `https://raw.githubusercontent.com/${repoFullName}/${readmeData.branch_name || 'main'}/${imageUrl}`;
+            }
+            
+            // Vérifier que c'est bien une image (incluant les URLs GitHub assets)
+            if (imageUrl.match(/\.(jpg|jpeg|png|gif|webp|svg)(\?.*)?$/i) || 
+                imageUrl.includes('github.com/user-attachments/assets/')) {
+                // Pour les URLs GitHub assets, on les utilise directement
+                images.add(imageUrl);
+            }
+        }
+
+        const imageArray = Array.from(images);
+        console.log(`📸 ${imageArray.length} images trouvées dans ${repoFullName}`, imageArray);
+        return imageArray;
+        
+    } catch (error) {
+        console.error(`❌ Erreur lors de l'extraction des images pour ${repoFullName}:`, error);
+        return [];
+    }
+}
+
+// Fonction pour créer le carousel d'images
+function createImageCarousel(images, projectId) {
+    if (!images || images.length === 0) {
+        return `<div style="font-size: 4rem; color: #6366f1;">📁</div>`;
+    }
+
+    const carouselId = `carousel-${projectId}`;
+    let carouselHTML = `
+        <div class="image-carousel" id="${carouselId}" style="width:100%; height:100%; position:relative; overflow:hidden;">
+    `;
+
+    // Ajouter toutes les images avec transition de fondu
+    images.forEach((image, index) => {
+        // Vérifier si c'est une URL GitHub assets
+        const isGitHubAsset = image.includes('github.com/user-attachments/assets/');
+        // Utiliser l'URL directe pour les assets GitHub
+        const finalImageUrl = isGitHubAsset ? image : image;
+        
+        carouselHTML += `
+            <img src="${finalImageUrl}" 
+                 alt="Screenshot ${index + 1}" 
+                 style="
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    object-fit: contain;
+                    background: #1a1a1a;
+                    display: ${index === 0 ? 'block' : 'none'};
+                    opacity: ${index === 0 ? '1' : '0'};
+                    transition: opacity 1s ease;
+                 "
+                 onerror="this.style.display='none'; console.error('Erreur de chargement de l\\'image: ${finalImageUrl}')"
+                 onload="this.style.opacity='1'">
+        `;
+    });
+
+    // Ajouter les points de navigation si plus d'une image
+    if (images.length > 1) {
+        carouselHTML += `
+            <div class="carousel-nav" style="
+                position: absolute;
+                bottom: 10px;
+                left: 50%;
+                transform: translateX(-50%);
+                display: flex;
+                gap: 5px;
+                z-index: 10;
+            ">
+        `;
+        
+        for (let i = 0; i < images.length; i++) {
+            carouselHTML += `
+                <div class="carousel-dot ${i === 0 ? 'active' : ''}" 
+                     onclick="switchCarouselImage('${carouselId}', ${i})"
+                     style="
+                        width: 8px;
+                        height: 8px;
+                        border-radius: 50%;
+                        background: ${i === 0 ? '#6366f1' : 'rgba(255,255,255,0.5)'};
+                        cursor: pointer;
+                        transition: all 0.3s ease;
+                     ">
+                </div>
+            `;
+        }
+        carouselHTML += `</div>`;
+    }
+
+    carouselHTML += `</div>`;
+
+    // Démarrer l'auto-rotation après un délai
+    setTimeout(() => {
+        if (images.length > 1) {
+            startCarouselRotation(carouselId, images.length);
+        }
+    }, 2000);
+
+    return carouselHTML;
+}
+
+// Fonction pour changer d'image dans le carousel
+function switchCarouselImage(carouselId, targetIndex) {
+    const carousel = document.getElementById(carouselId);
+    if (!carousel) return;
+
+    const images = carousel.querySelectorAll('img');
+    const dots = carousel.querySelectorAll('.carousel-dot');
+    
+    // Masquer toutes les images avec fondu
+    images.forEach((img, index) => {
+        if (index === targetIndex) {
+            img.style.display = 'block';
+            setTimeout(() => {
+                img.style.opacity = '1';
+            }, 20);
+        } else {
+            img.style.opacity = '0';
+            setTimeout(() => {
+                img.style.display = 'none';
+            }, 500); // Correspond à la durée de la transition
+        }
+    });
+
+    // Mettre à jour les points de navigation
+    dots.forEach((dot, index) => {
+        dot.style.background = index === targetIndex ? '#6366f1' : 'rgba(255,255,255,0.5)';
+    });
+
+    // Stocker l'index actuel
+    carousel.dataset.currentIndex = targetIndex;
+}
+
+// Fonction pour démarrer la rotation automatique
+function startCarouselRotation(carouselId, imageCount) {
+    const carousel = document.getElementById(carouselId);
+    if (!carousel) return;
+
+    let currentIndex = parseInt(carousel.dataset.currentIndex || 0);
+    let rotationInterval;
+    
+    const rotate = () => {
+        currentIndex = (currentIndex + 1) % imageCount;
+        switchCarouselImage(carouselId, currentIndex);
+    };
+    
+    rotationInterval = setInterval(rotate, 3000); // Rotation toutes les 3 secondes
+
+    // Arrêter la rotation au survol
+    carousel.addEventListener('mouseenter', () => {
+        clearInterval(rotationInterval);
+    });
+
+    // Reprendre la rotation quand la souris sort
+    carousel.addEventListener('mouseleave', () => {
+        rotationInterval = setInterval(rotate, 3000);
+    });
+}
+
 // Fonction principale avec meilleure gestion d'erreurs
 async function loadGithubProjects() {
     const username = 'maxencebailly';
@@ -122,9 +318,11 @@ async function loadGithubProjects() {
             return;
         }
 
-        // Génération du HTML
+        // Génération du HTML avec extraction des images
         let projectsHTML = '';
         const maxRepos = Math.min(repos.length, 12);
+
+        container.innerHTML = '<div class="loading">🔄 Chargement des projets et extraction des images...</div>';
 
         for (let i = 0; i < maxRepos; i++) {
             const repo = repos[i];
@@ -136,13 +334,19 @@ async function loadGithubProjects() {
             const homepage = repo.homepage;
             const lastUpdate = new Date(repo.updated_at).toLocaleDateString('fr-FR');
 
-            // Icône basée sur le langage
-            const languageIcon = getLanguageIcon(language);
+            // Extraire les images du README
+            console.log(`📸 Extraction des images pour ${repo.full_name}...`);
+            const images = await extractImagesFromReadme(repo.full_name, headers);
+            
+            // Créer le carousel ou l'icône par défaut
+            const imageContent = images.length > 0 
+                ? createImageCarousel(images, repo.id)
+                : `<div style="font-size: 4rem; color: #6366f1;">${getLanguageIcon(language)}</div>`;
 
             projectsHTML += `
                 <div class="project-card">
                     <div class="project-image">
-                        <div style="font-size: 4rem; color: #6366f1;">${languageIcon}</div>
+                        ${imageContent}
                     </div>
                     <div class="project-content">
                         <div class="project-header">
@@ -152,6 +356,7 @@ async function loadGithubProjects() {
                                     <span class="project-stat">⭐ ${stars}</span>
                                     <span class="project-stat">🍴 ${forks}</span>
                                     <span class="project-stat">💻 ${language}</span>
+                                    ${images.length > 0 ? `<span class="project-stat">📸 ${images.length}</span>` : ''}
                                 </div>
                                 <small style="color: #888;">Mis à jour le ${lastUpdate}</small>
                             </div>
@@ -308,3 +513,4 @@ document.addEventListener('DOMContentLoaded', () => {
 window.loadGithubProjects = loadGithubProjects;
 window.refreshGitHubData = refreshGitHubData;
 window.testGitHubToken = testGitHubToken;
+window.switchCarouselImage = switchCarouselImage;
