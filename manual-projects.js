@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
         "lyon_lumiere": {
             title: "Lyon Lumière",
             description: "Site présentant Lyon avec pour thème initial \"Lumière\". Celui-ci permet de voyager à tavars Lyon et ses monument lors d'une expérience inoubliable. Nous avons eu la 4e place sur 39 équipes",
-            year: "2024",
+            year: "2025",
             technologies: ["HTML", "CSS", "JavaScript"],
             links: [
                 { url: "https://miinnee.github.io/BlockChainersEpreuveWeb/", text: "Voir le projet", icon: "external-link" }
