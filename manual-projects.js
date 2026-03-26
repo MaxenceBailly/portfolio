@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const projectsConfig = {
         "lyon_lumiere": {
             title: "Lyon Lumière",
-            description: "Site présentant Lyon avec pour thème initial \"Lumière\". Celui-ci permet de voyager à tavars Lyon et ses monument lors d'une expérience inoubliable. Nous avons eu la 4e place sur 39 équipes",
+            description: "Site présentant Lyon avec pour thème initial \"Lumière\". Celui-ci permet de voyager à travers Lyon et ses monuments lors d'une expérience inoubliable. Nous avons eu la 4e place sur 39 équipes",
             year: "2025",
             technologies: ["HTML", "CSS", "JavaScript"],
             links: [
@@ -17,8 +17,23 @@ document.addEventListener('DOMContentLoaded', () => {
                 "5.png"
             ]
         },
-        "nom_projet_2": {
-            // Configuration similaire pour le projet 2
+        "gamejam_2026": {
+            title: "La Clique des Clicks",
+            description: "Jeu développé dans le cadre de la Code Game Jam 2026 sur le thème \"fête des clicks\".",
+            year: "2026",
+            technologies: ["Unity", "C#"],
+            links: [
+                { url: "https://firefrezen.itch.io/la-clique-des-click", text: "Jouer sur itch.io", icon: "external-link" }
+            ],
+            images: [
+                "screenshot1.png",
+                "screenshot2.png", 
+                "screenshot3.png", 
+                "screenshot4.png", 
+                "screenshot5.png", 
+                "screenshot6.png", 
+                "screenshot7.png" 
+            ]
         }
     };
 

@@ -5,15 +5,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Maxence Bailly - Portfolio</title>
     <link rel="stylesheet" href="./style.css">
+    <style>
+        /* Styles pour les logos de compétences */
+        .skill-logos {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 15px;
+        }
+        .skill-logo {
+            width: 40px;
+            height: 40px;
+            object-fit: contain;
+            filter: grayscale(100%);
+            transition: all 0.3s ease;
+        }
+        .skill-item:hover .skill-logo {
+            filter: grayscale(0%);
+            transform: scale(1.1);
+        }
+    </style>
 </head>
 <body>
-    <!-- Navigation -->
     <nav>
         <div class="nav-container">
             <div class="logo">Maxence Bailly</div>
             <ul class="nav-links">
                 <li><a href="#accueil">Accueil</a></li>
                 <li><a href="#projets">Projets</a></li>
+                <li><a href="#ambitions">Ambitions</a></li>
                 <li><a href="#experiences">Expériences</a></li>
                 <li><a href="#competences">Compétences</a></li>
                 <li><a href="#parcours">Parcours</a></li>
@@ -23,18 +44,23 @@
         </div>
     </nav>
 
-    <!-- Hero Section -->
     <section id="accueil" class="hero">
         <div id="particles-js"></div>
         <div class="hero-content">
+            <img src="./assets/images/pp.png" alt="Photo de Maxence Bailly" style="width: 180px; height: 180px; border-radius: 50%; object-fit: cover; border: 4px solid #6366f1; margin-bottom: 1.5rem; box-shadow: 0 10px 25px rgba(99, 102, 241, 0.4);">
+            
             <h1>Maxence Bailly</h1>
-            <p>Etudiant en BUT informatique</p>
+            <p style="max-width: 600px; margin: 0 auto 1.5rem auto; font-size: 1.2rem;">Passionné par l'informatique, je suis à la recherche d'opportunitées dans le développement informatique pour mettre en œuvre mes compétences.</p>
+            
+            <div style="margin-bottom: 2rem; color: #b0b0b0; font-size: 1rem;">
+                <p>📍 La Ville du Bois (91620) | 📞 07 69 88 35 68 | ✉️ maxence.bailly.job@gmail.com</p>
+            </div>
+
             <a href="#projets" class="hero-cta">Découvrir mes projets</a>
         </div>
     </section>
 
     <div class="container">
-        <!-- Section Projets GitHub -->
         <section id="projets" class="section">
             <h2 class="section-title">Mes Projets GitHub</h2>
             <div id="githubProjects" class="github-projects">
@@ -42,14 +68,35 @@
             </div>
         </section>
 
-        <!-- Section Projets Manuels -->
         <section id="projets-manuels" class="section">
             <h2 class="section-title">Mes Autres Projets</h2>
             <div class="manual-projects">
-                <!-- Projet 1 -->
+                <div class="project-card" data-project="gamejam_2026">
+                    <div class="project-image">
+                    <div class="loading-carousel">Chargement des images...</div></div>
+                    <div class="project-content">
+                        <div class="project-header">
+                            <h3 class="project-title">La Clique des Clicks</h3>
+                            <div class="project-stats">
+                                <span class="project-stat">📅 Code Game Jam 2026</span>
+                            </div>
+                        </div>
+                        <p class="project-description">
+                            Jeu développé dans le cadre de la Code Game Jam 2026 sur le thème "fête des clicks".
+                        </p>
+                        <div class="project-links">
+                            <a href="https://firefrezen.itch.io/la-clique-des-click" target="_blank" class="project-link">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                                </svg>
+                                Jouer sur itch.io
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="project-card" data-project="lyon_lumiere">
                     <div class="project-image">
-                        <!-- Le carrousel sera généré par JavaScript -->
                         <div class="loading-carousel">Chargement des images...</div>
                     </div>
                     <div class="project-content">
@@ -61,9 +108,9 @@
                             </div>
                         </div>
                         <p class="project-description">
-                            Site présentant Lyon avec pour thème initial "Lumière". Celui-ci permet de voyager à tavars Lyon et ses monument lors d'une expérience inoubliable.
+                            Site présentant Lyon avec pour thème initial "Lumière". Celui-ci permet de voyager à travers Lyon et ses monuments lors d'une expérience inoubliable.
                             <br>
-                            Nous avons eu la 4e place sur 39 équipes
+                            Nous avons eu la 4e place sur 39 équipes.
                         </p>
                         <div class="project-links">
                             <a href="https://miinnee.github.io/BlockChainersEpreuveWeb/" target="_blank" class="project-link">
@@ -78,137 +125,177 @@
             </div>
         </section>
 
-        <!-- Section Expériences -->
-        <section id="experiences" class="section">
-            <h2 class="section-title">Mes Expériences</h2>
-            <div class="timeline">
-                <div class="timeline-item">
-                    <div class="timeline-date">2025</div>
-                    <h3>24H de l'info</h3>
-                    <p><strong>Evenement entre IUT</strong></p>
-                    <p>4e/39 épreuve Web</p>
+        <section id="ambitions" class="section">
+            <h2 class="section-title">Mes Ambitions</h2>
+            <div class="grid grid-3">
+                <div class="card">
+                    <h3>🚀 Court terme</h3>
+                    <p>Trouver un stage stimulant de 11 à 12 semaines (avril - juillet 2025) pour consolider mes acquis. À plus long terme, je projette de me lancer professionnellement dans le développement de jeux vidéo, alliant passion et expertise technique.</p>
                 </div>
-                <div class="timeline-item">
-                    <div class="timeline-date">2019</div>
-                    <h3>SAP kids</h3>
-                    <p><strong>Stage d'une journée à SAP</strong></p>
-                    <p>Découverte des domaines de SAP et de l'organisation globale ainsi que certains projets</p>
+                <div class="card">
+                    <h3>🎯 Moyen terme</h3>
+                    <p>Valider mon BUT Informatique et poursuivre vers un diplôme d'ingénieur. Mon objectif entrepreneurial est de créer ma propre entreprise dans le secteur du numérique ou du jeu vidéo.</p>
+                </div>
+                <div class="card">
+                    <h3>🌟 Long terme</h3>
+                    <p>Parallèlement à ma carrière technique, je souhaite m'investir fortement dans le tissu associatif en gérant une ou plusieurs associations, mettant mes compétences au service de causes qui me tiennent à cœur.</p>
                 </div>
             </div>
         </section>
 
-        <!-- Section Compétences -->
+        <section id="experiences" class="section">
+            <h2 class="section-title">Mes Expériences Professionnelles & Associatives</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-date">Sept. 2025 - Aujourd'hui</div>
+                    <h3>Chef Scout SGDF Louveteaux-Jeanettes (8-11 ans)</h3>
+                    <p><strong>ST JB Val d'Orge</strong></p>
+                    <p>Encadrement de jeunes enfants, organisation des activités, et travail en équipe pour la gestion du groupe.</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">2024 - Aujourd'hui</div>
+                    <h3>Cours particuliers (Collège/Lycée)</h3>
+                    <p><strong>À domicile</strong></p>
+                    <p>Développement de la pédagogie et accompagnement d'élèves pour les aider à surmonter leurs difficultés scolaires.</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">2026</div>
+                    <h3>Code Game Jam 2026</h3>
+                    <p><strong>Événement international entre IUT</strong></p>
+                    <p>TOP 3 à l'IUT d'Orsay (équipe : BlockChainers)</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">2025</div>
+                    <h3>24H de l'info</h3>
+                    <p><strong>Événement entre IUT</strong></p>
+                    <p>4e/39 épreuve Web (Travail d'équipe intensif sous contrainte de temps).</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">2021</div>
+                    <h3>Éducateur Sportif (Stage de 3ème)</h3>
+                    <p><strong>École élémentaire Ambroise Paré</strong></p>
+                    <p>Accompagnement et aide aux enfants dans la pratique de diverses activités physiques.</p>
+                </div>
+            </div>
+        </section>
+
         <section id="competences" class="section">
             <h2 class="section-title">Mes Compétences</h2>
             <div class="skills-grid">
                 <div class="skill-item">
+                    <div class="skill-icon">💻</div>
+                    <h3>Développement Logiciel</h3>
+                    <p>Maîtrise de plusieurs langages pour le développement d'applications et de jeux.</p>
+                    <div class="skill-logos">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg" alt="Python" class="skill-logo" title="Python">
+                        <img src="https://upload.wikimedia.org/wikipedia/en/thumb/3/30/Java_programming_language_logo.svg/960px-Java_programming_language_logo.svg.png" alt="Java" class="skill-logo" title="Java">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/1/19/C_Logo.png" alt="C" class="skill-logo" title="C">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/ISO_C%2B%2B_Logo.svg/1920px-ISO_C%2B%2B_Logo.svg.png" alt="C++" class="skill-logo" title="C++">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/4/4f/Csharp_Logo.png" alt="C#" class="skill-logo" title="C#">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Lua-Logo.svg/3840px-Lua-Logo.svg.png" alt="Lua" class="skill-logo" title="Lua">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/7/7e/Dart-logo.png" alt="Dart" class="skill-logo" title="Dart">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/c/c4/Unity_2021.svg" alt="Unity" class="skill-logo" title="Unity">
+                    </div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-icon">🌐</div>
+                    <h3>Web & BDD</h3>
+                    <p>Création de sites web dynamiques et gestion de bases de données relationnelles.</p>
+                    <div class="skill-logos">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/8/80/HTML5_logo_resized.svg" alt="HTML5" class="skill-logo" title="HTML5">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/CSS3_logo.svg/960px-CSS3_logo.svg.png" alt="CSS3" class="skill-logo" title="CSS3">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Unofficial_JavaScript_logo_2.svg/960px-Unofficial_JavaScript_logo_2.svg.png" alt="JavaScript" class="skill-logo" title="JavaScript">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/27/PHP-logo.svg/3840px-PHP-logo.svg.png" alt="PHP" class="skill-logo" title="PHP">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/8/87/Sql_data_base_with_logo.png" alt="SQL" class="skill-logo" title="SQL">
+                        <img src="https://esi.edu.sa/wp-content/uploads/2021/12/PL_SQL.jpg" alt="PL/SQL" class="skill-logo" title="PL/SQL">
+                    </div>
+                </div>
+                <div class="skill-item">
                     <div class="skill-icon">⚙️</div>
-                    <h3>Programmation</h3>
-                    <p>Développement en Python, C++, Java</p>
+                    <h3>Outils & Méthodologie</h3>
+                    <p>Utilisation de méthodes agiles et d'outils de versioning pour le travail d'équipe.</p>
+                    <div class="skill-logos">
+                        <img src="https://thumbs.dreamstime.com/b/agile-icon-methodology-vector-development-scrum-flexible-software-logo-concept-206202942.jpg" alt="SCRUM" class="skill-logo" title="SCRUM">
+                        <img src="https://aguayo-co.s3.amazonaws.com/public/images/Agile-methodology-user-experience.width-490.png" alt="Agile" class="skill-logo" title="Agile">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Git-logo.svg/960px-Git-logo.svg.png" alt="Git" class="skill-logo" title="Git">
+                    </div>
                 </div>
                 <div class="skill-item">
-                    <div class="skill-icon">👔</div>
-                    <h3>Travail d'équipe</h3>
-                    <p>Collaborer avec n'importe qui</p>
-                </div>
-                <div class="skill-item">
-                    <div class="skill-icon">🎨</div>
-                    <h3>UI/UX Design</h3>
-                    <p>Interfaces intuitives et modernes avec HTML, CSS, JS</p>
-                </div>
-                <div class="skill-item">
-                    <div class="skill-icon">🗄️</div>
-                    <h3>Bases de données</h3>
-                    <p>SQL, Oracle, PostgreSQL</p>
-                </div>
-                <div class="skill-item">
-                    <div class="skill-icon">​🗣️</div>
-                    <h3>Communiquer</h3>
-                    <p>Savoir se faire comprendre et clairement exposer ses idées</p>
+                    <div class="skill-icon">🌍</div>
+                    <h3>Langues</h3>
+                    <p>
+                        <strong>Français :</strong> Langue maternelle<br>
+                        <strong>Anglais :</strong> Niveau B1+<br>
+                        <strong>Croate :</strong> Niveau A1
+                    </p>
                 </div>
             </div>
         </section>
 
-        <!-- Section Parcours -->
         <section id="parcours" class="section">
-            <h2 class="section-title">Mon Parcours</h2>
+            <h2 class="section-title">Mon Parcours Scolaire</h2>
             <div class="grid grid-2">
                 <div class="card">
                     <h3>Formation Académique</h3>
                     <div class="timeline">
                         <div class="timeline-item">
-                            <div class="timeline-date">2024 - en cours</div>
-                            <h4>BUT informatique</h4>
-                            <p>IUT d'Orsay, Gifs-sur-Yvette - Perfectionnement et découverte des réseaux</p>
+                            <div class="timeline-date">2024 - Aujourd'hui</div>
+                            <h4>BUT Informatique</h4>
+                            <p>IUT d'Orsay, Université Paris Saclay - Développement, Base de données, Web et Travail d'équipe.</p>
                         </div>
                         <div class="timeline-item">
                             <div class="timeline-date">2021 - 2024</div>
-                            <h4>BAC général</h4>
-                            <p>Lycée Edmond Michelet, Arpajon - Découverte de la base de données</p>
-                        </div>
-                        <div class="timeline-item">
-                            <div class="timeline-date">2017 - 2021</div>
-                            <h4>Brevet des Collèges</h4>
-                            <p>Collège Louise Weiss, Nozay - Découverte des bases de la programmation</p>
+                            <h4>Baccalauréat Général</h4>
+                            <p>Lycée Edmond Michelet, Arpajon.<br>
+                            <strong>Spécialités :</strong> Mathématiques et NSI.<br>
+                            <strong>Mention :</strong> AB.</p>
                         </div>
                     </div>
                 </div>
                 <div class="card">
-                    <h3>Certifications</h3>
+                    <h3>Divers & Certifications</h3>
                     <ul style="list-style: none; padding: 0;">
                         <li style="margin-bottom: 1rem; padding: 1rem; background: rgba(99, 102, 241, 0.1); border-radius: 8px;">
-                            <strong>Aucune certifications pour le moment</strong><br>
-                            <small style="color: #888;">Peut être bientôt</small>
+                            <strong>Secourisme :</strong> PSC 1 (Obtenu en 2025)
+                        </li>
+                        <li style="margin-bottom: 1rem; padding: 1rem; background: rgba(99, 102, 241, 0.1); border-radius: 8px;">
+                            <strong>Mobilité :</strong> Titulaire du Permis B
                         </li>
                     </ul>
                 </div>
             </div>
         </section>
 
-        <!-- Section Passions -->
         <section id="passions" class="section">
-            <h2 class="section-title">Mes Passions & Loisirs</h2>
+            <h2 class="section-title">Mes Passions & Centres d'Intérêt</h2>
             <div class="grid grid-3">
                 <div class="card">
-                    <h3>🎮 Gaming</h3>
-                    <p>Passionné de jeux vidéo, particulièrement les RPG en monde ouvert, les jeux créatifs</p>
-                </div>
-                <div class="card">
-                    <h3>🧠 Neurotechnologies</h3>
-                    <p>Impressionné par la neurotechnlogie, la curiosité prend le devant pour parcourir ce domaine</p>
-                </div>
-                <div class="card">
-                    <h3>🤖 IA</h3>
-                    <p>Utilisation d'intelligences artificielles et s'informe sur leur fonctionnement</p>
+                    <h3>🎮 Jeux Vidéo</h3>
+                    <p>Passionné de jeux vidéo depuis plusieurs années, particulièrement les RPG en monde ouvert, les jeux créatifs et les jeux rétro.</p>
                 </div>
                 <div class="card">
                     <h3>🏃‍♂️ Sport</h3>
-                    <p>Musculation, natation, sports d'équipe, la vie est faite de mouvement</p>
+                    <p>Pratique régulière de la musculation et de la natation pour maintenir un bon équilibre physique et mental.</p>
                 </div>
                 <div class="card">
-                    <h3>🎵 Musique</h3>
-                    <p>Adore écouter de la musique de tout type<p>
-                </div>
-                <div class="card">
-                    <h3>✏️ Dessin</h3>
-                    <p>Laisse parler sa créativité</p>
+                    <h3>🎸 Musique</h3>
+                    <p>Pratique de la guitare. J'apprécie également découvrir et écouter des styles musicaux très variés.</p>
                 </div>
                 <div class="card">
                     <h3>🇬🇧 Apprentissage de langues</h3>
-                    <p>Appprendre de nouveaux mots, de nouvelles phrases et parler avec des personnes d'autres cultures j'adore</p>
+                    <p>J'aime apprendre de nouveaux mots et parler avec des personnes de cultures différentes (Anglais, base de Croate).</p>
                 </div>
                 <div class="card">
-                    <h3>🗣️ Communiquer avec autrui</h3>
-                    <p>Que ce soit dans le travail d'équipe ou en dehors, communiquer est un bon passe-temps<p>
+                    <h3>🤖 Technologies</h3>
+                    <p>Curieux de nature, je m'informe régulièrement sur le fonctionnement de l'IA et je suis impressionné par les avancées en neurotechnologies.</p>
                 </div>
                 <div class="card">
-                    <h3>🐼 Panda</h3>
-                    <p>Rien ne surpasse ces peluches poilues toutes mignonnes<p>
+                    <h3>🐼 Pandas</h3>
+                    <p>J'ai une affection particulière pour les pandas, ces animaux fascinants et symboles de la conservation de la nature. J'aime me documenter sur eux.</p>
                 </div>
             </div>
         </section>
 
-        <!-- Section Contact -->
         <section id="contact" class="section">
             <h2 class="section-title">Me Contacter</h2>
             <div class="contact-form">
@@ -235,25 +322,24 @@
         </section>
     </div>
 
-    <!-- Footer -->
     <footer>
         <div class="container">
             <div class="footer-content">
                 <div class="footer-section">
                     <h3>Maxence Bailly</h3>
-                    <p>Développeur Full Stack passionné par la création d'expériences digitales innovantes et l'exploration des nouvelles technologies.</p>
+                    <p>Étudiant passionné à la recherche d'un stage en développement informatique.</p>
                     <div class="social-links">
-                        <a href="https://github.com/maxencebailly" target="_blank" class="social-link" title="GitHub">
+                        <a href="https://github.com/MaxenceBailly" target="_blank" class="social-link" title="GitHub">
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
                                 <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
                             </svg>
                         </a>
-                        <a href="https://www.linkedin.com/in/maxence-bailly-71ab162b2/" target="_blank" class="social-link" title="LinkedIn">
+                        <a href="https://www.linkedin.com/in/maxence-bailly" target="_blank" class="social-link" title="LinkedIn">
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
                                 <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
                             </svg>
                         </a>
-                        <a href="mailto:maxence.bailly.fr@gmail.com" class="social-link" title="Email">
+                        <a href="mailto:maxence.bailly.job@gmail.com" class="social-link" title="Email">
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
                                 <path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-.904.732-1.636 1.636-1.636h.486l.018.022L12 10.017l9.86-6.174.018-.022h.486c.904 0 1.636.732 1.636 1.636z"/>
                             </svg>
@@ -265,27 +351,19 @@
                     <ul style="list-style: none; padding: 0;">
                         <li style="margin-bottom: 0.5rem;"><a href="#accueil" style="color: #b0b0b0; text-decoration: none;">Accueil</a></li>
                         <li style="margin-bottom: 0.5rem;"><a href="#projets" style="color: #b0b0b0; text-decoration: none;">Projets</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="#ambitions" style="color: #b0b0b0; text-decoration: none;">Ambitions</a></li>
                         <li style="margin-bottom: 0.5rem;"><a href="#experiences" style="color: #b0b0b0; text-decoration: none;">Expériences</a></li>
                         <li style="margin-bottom: 0.5rem;"><a href="#competences" style="color: #b0b0b0; text-decoration: none;">Compétences</a></li>
-                        <li style="margin-bottom: 0.5rem;"><a href="#contact" style="color: #b0b0b0; text-decoration: none;">Contact</a></li>
                     </ul>
-                </div>
-                <div class="footer-section">
-                    <h3>Technologies préférées</h3>
-                    <p style="color: #b0b0b0;">Python • C++ • Web • NFC</p>
-                    <br>
-                    <h3>Disponibilité</h3>
-                    <p style="color: #b0b0b0;">Ouvert aux opportunités et collaborations intéressantes.</p>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>2025 Maxence Bailly. Tous droits réservés.</p>
+                <p>2026 Maxence Bailly. Tous droits réservés.</p>
             </div>
         </div>
     </footer>
     
-    <!-- Scripts -->
-     <script src="./github.js"></script>
+    <script src="./github.js"></script>
     <script src="./animation.js"></script>
     <script src="./contact.js"></script>
     <script src="./particles.js-master/particles.min.js"></script>
